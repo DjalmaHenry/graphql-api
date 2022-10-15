@@ -6,7 +6,7 @@ const customerAttributes = `
     company: String!
     last_name: String!
     first_name: String!
-    email: String
+    email_address: String
     job_title: String!
     business_phone: String!
     home_phone: String
