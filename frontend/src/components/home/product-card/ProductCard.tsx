@@ -6,16 +6,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import iPhone from "../../../assets/img/iphone-14.webp";
-import "./HomeCard.css";
-export default function HomeCard() {
+import "./ProductCard.css";
+import Link from "react-router-dom";
+export default function ProductCard() {
   return (
     <Card className="card" sx={{ maxWidth: 500 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={iPhone}
-        alt="green iguana"
-      />
+      <CardMedia component="img" height="140" image={iPhone} alt="product" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           Detalhes
@@ -23,6 +19,9 @@ export default function HomeCard() {
         <Typography variant="body2" color="text.secondary">
           iPhone 14 pro max, de 512gb com 3 cameras, tela de 6.7 polegadas e
           processador A15 Bionic de 5nm com 6 núcleos.
+        </Typography>
+        <Typography variant="h6" component="div">
+          Fornecedor: Lucas
         </Typography>
       </CardContent>
       <CardContent>
