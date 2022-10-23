@@ -18,7 +18,7 @@ import { Product } from "../../../types/product";
 //   name: string;
 // };
 
-export default function ProductCard(product: Product) {
+export default function ProductCard(product: any) {
   return (
     <Card className="card" sx={{ maxWidth: 500 }}>
       <CardMedia component="img" height="140" image={iPhone} alt="product" />

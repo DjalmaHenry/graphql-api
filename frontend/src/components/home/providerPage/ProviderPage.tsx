@@ -16,7 +16,7 @@ import { Product } from "../../../types/product";
 // };
 
 export default function Provider() {
-  var providerProducts: Product[] = [
+  const providerProducts: any = [
     {
       id: 1,
       image: "https://picsum.photos/200/300",
@@ -41,7 +41,7 @@ export default function Provider() {
           <h1>Fornecedor Lucas</h1>
         </Col>
         <Col>
-          <Products {...providerProducts} />
+          <Products products={providerProducts} />
         </Col>
       </Row>
     </Container>

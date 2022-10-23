@@ -13,15 +13,17 @@ import { Product } from "../../../types/product";
 //   name: string;
 // };
 
-export default function Products(products: Product[]) {
+export default function Products(products: any) {
+  console.log(products);
+
   return (
     <Row>
       <Col>
         <h1>Products</h1>
         <div>
-          {products.map((product) => (
+          {/* {products.map((product) => (
             <ProductCard {...product} />
-          ))}
+          ))} */}
         </div>
       </Col>
     </Row>
