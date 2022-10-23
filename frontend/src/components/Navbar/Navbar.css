@@ -1,0 +1,38 @@
+.nav {
+    background-color: #b6d3a8;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1rem;
+    height: 2.3;
+}
+
+.nav a {
+    color: inherit;
+    text-decoration: none;
+    height: 100%;
+    padding: 0.6rem;
+    align-items: center;
+}
+
+.nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    font-size: 1.3rem;
+}
+
+.nav li:hover {
+    background-color: #7b9776;
+    border-radius: 5%;
+}
+
+.navbar-title {
+    color: #FFF;
+    font-size: 2rem;
+    font-weight: bold;
+}
