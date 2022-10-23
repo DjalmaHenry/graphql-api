@@ -4,26 +4,34 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import Products from "../products/Products";
 
+import { Product } from "../../../types/product";
+
+// type ProductProps = {
+//   id: number;
+//   image: string;
+//   description: string;
+//   provider: string;
+//   price: number;
+//   name: string;
+// };
+
 export default function Provider() {
-  const providerProducts = [
+  var providerProducts: Product[] = [
     {
       id: 1,
-      name: "iPhone 14 pro max",
-      description:
-        "iPhone 14 pro max, de 512gb com 3 cameras, tela de 6.7 polegadas e processador A15 Bionic de 5nm com 6 núcleos.",
-      image: "",
-      like: 0,
-      dislike: 0,
+      image: "https://picsum.photos/200/300",
+      description: "iPhone 14",
+      provider: "Apple",
+      price: 10000,
+      name: "iPhone 14",
     },
     {
-      id: 2,
-      title: "Detalhes",
-      description:
-        "iPhone 14 pro max, de 512gb com 3 cameras, tela de 6.7 polegadas e processador A15 Bionic de 5nm com 6 núcleos.",
-      image:
-        "https://www.apple.com/v/iphone/home/ae/images/overview/compare/compare_iphone_14_pro__f2x.png",
-      like: 0,
-      dislike: 0,
+      id: 1,
+      image: "https://picsum.photos/200/300",
+      description: "iPhone 14",
+      provider: "Apple",
+      price: 10000,
+      name: "iPhone 14",
     },
   ];
   return (
@@ -33,7 +41,7 @@ export default function Provider() {
           <h1>Fornecedor Lucas</h1>
         </Col>
         <Col>
-          <Products products={providerProducts} />
+          <Products {...providerProducts} />
         </Col>
       </Row>
     </Container>

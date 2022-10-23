@@ -7,8 +7,18 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import iPhone from "../../../assets/img/iphone-14.webp";
 import "./ProductCard.css";
-import Link from "react-router-dom";
-export default function ProductCard() {
+import { Product } from "../../../types/product";
+
+// type ProductProps = {
+//   id: number;
+//   image: string;
+//   description: string;
+//   provider: string;
+//   price: number;
+//   name: string;
+// };
+
+export default function ProductCard(product: Product) {
   return (
     <Card className="card" sx={{ maxWidth: 500 }}>
       <CardMedia component="img" height="140" image={iPhone} alt="product" />
@@ -17,11 +27,10 @@ export default function ProductCard() {
           Detalhes
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          iPhone 14 pro max, de 512gb com 3 cameras, tela de 6.7 polegadas e
-          processador A15 Bionic de 5nm com 6 núcleos.
+          {product.description}
         </Typography>
         <Typography variant="h6" component="div">
-          Fornecedor: Lucas
+          Fornecedor: {product.provider}
         </Typography>
       </CardContent>
       <CardContent>
@@ -29,7 +38,7 @@ export default function ProductCard() {
           Preço
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          R$ 10.000,00
+          R$ {product.price}
         </Typography>
         <CardActions>
           <Button size="small">Comprar</Button>
