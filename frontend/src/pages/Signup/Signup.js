@@ -10,6 +10,7 @@ export function Signup() {
   const handleRegister = (values) => {
     Axios.post("", {
       email: values.email,
+      name: values.name,
       password: values.password,
     }).then((response) => {
       alert(response.data.msg);
@@ -22,6 +23,14 @@ export function Signup() {
       .string()
       .email("Email inválido")
       .required("O email é obrigatório"),
+    firstname: yup
+      .string()
+      .max(15, "Nome pode ter até 15 caracteres")
+      .required("Nome é obrigatório"),
+    lastname: yup
+      .string()
+      .max(15, "Nome pode ter até 15 caracteres")
+      .required("Nome é obrigatório"),
     password: yup
       .string()
       .min(8, "Senha deve ter pelo menos 8 caracteres")
@@ -49,6 +58,34 @@ export function Signup() {
               <ErrorMessage
                 component="span"
                 name="email"
+                className="form-error"
+              />
+            </div>
+
+            <div className="form-group">
+              <Field
+                name="firstname"
+                className="form-field"
+                placeholder="Primeiro nome"
+              />
+
+              <ErrorMessage
+                component="span"
+                name="firstname"
+                className="form-error"
+              />
+            </div>
+
+            <div className="form-group">
+              <Field
+                name="lastname"
+                className="form-field"
+                placeholder="Último nome"
+              />
+
+              <ErrorMessage
+                component="span"
+                name="lastname"
                 className="form-error"
               />
             </div>
