@@ -1,8 +1,5 @@
 import React from "react";
-import ProductCard from "../product-card/ProductCard";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
-import { Product } from "../../../types/product";
+import ProductCard from "../Product-card/ProductCard";
 
 // type ProductProps = {
 //   id: number;
@@ -17,15 +14,13 @@ export default function Products(products: any) {
   console.log(products);
 
   return (
-    <Row>
-      <Col>
-        <h1>Products</h1>
-        <div>
-          {/* {products.map((product) => (
+    <>
+      <h1>Products</h1>
+      <div>
+        {/* {products.map((product) => (
             <ProductCard {...product} />
           ))} */}
-        </div>
-      </Col>
-    </Row>
+      </div>
+    </>
   );
 }

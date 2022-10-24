@@ -1,6 +1,6 @@
 import React from "react";
-import ProviderPage from "../home/providerPage/ProviderPage";
-import Products from "../home/products/Products";
+import ProviderPage from "../ProviderPage/ProviderPage";
+import Products from "../../components/Products/Products";
 
 export default function Home() {
   return (

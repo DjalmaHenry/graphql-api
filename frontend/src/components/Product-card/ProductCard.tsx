@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import iPhone from "../../../assets/img/iphone-14.webp";
 import "./ProductCard.css";
-import { Product } from "../../../types/product";
 
 // type ProductProps = {
 //   id: number;

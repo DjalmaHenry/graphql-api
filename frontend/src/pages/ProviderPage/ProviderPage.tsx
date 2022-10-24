@@ -1,10 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import Products from "../products/Products";
-
-import { Product } from "../../../types/product";
+import Products from "../../components/Products/Products";
 
 // type ProductProps = {
 //   id: number;
@@ -35,15 +30,9 @@ export default function Provider() {
     },
   ];
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h1>Fornecedor Lucas</h1>
-        </Col>
-        <Col>
-          <Products products={providerProducts} />
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <h1>Fornecedor Lucas</h1>
+      <Products products={providerProducts} />
+    </>
   );
 }
