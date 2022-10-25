@@ -7,7 +7,7 @@ export default function Header() {
       <Link to="/products">
         <button>Produtos</button>
       </Link>
-      <Link to="/providers">
+      <Link to="/provider">
         <button>Fornecedores</button>
       </Link>
       <Link to="/">

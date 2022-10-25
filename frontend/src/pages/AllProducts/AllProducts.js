@@ -1,8 +1,9 @@
 import React from "react";
+import Iphone from "../../assets/img/iphone-14.webp";
 import Products from "../../components/Products/Products";
 
-export default function Provider() {
-  const providerProducts = [
+export default function AllProducts() {
+  const AllProducts = [
     {
       id: 1,
       image: "https://www.pngmart.com/files/22/iPhone-14-PNG-Transparent.png",
@@ -21,9 +22,9 @@ export default function Provider() {
     },
   ];
   return (
-    <>
-      <h1>Fornecedor Lucas</h1>
-      <Products products={providerProducts} />
-    </>
+    <div>
+      <h1>Todos os Products</h1>
+      <Products products={AllProducts} />
+    </div>
   );
 }

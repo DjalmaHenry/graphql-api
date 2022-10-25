@@ -18,7 +18,6 @@ import "./ProductCard.css";
 // };
 
 export default function ProductCard(props) {
-  console.log(props.product);
   return (
     <Card className="card" sx={{ maxWidth: 500 }}>
       <CardMedia
