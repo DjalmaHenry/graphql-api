@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import iPhone from "../../../assets/img/iphone-14.webp";
+import iPhone from "../../assets/img/iphone-14.webp";
 import "./ProductCard.css";
 
 // type ProductProps = {
@@ -17,19 +17,25 @@ import "./ProductCard.css";
 //   name: string;
 // };
 
-export default function ProductCard(product: any) {
+export default function ProductCard(props) {
+  console.log(props.product);
   return (
     <Card className="card" sx={{ maxWidth: 500 }}>
-      <CardMedia component="img" height="140" image={iPhone} alt="product" />
+      <CardMedia
+        component="img"
+        height="130"
+        image={props.product.image}
+        alt="product"
+      />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           Detalhes
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {product.description}
+          {props.product.description}
         </Typography>
         <Typography variant="h6" component="div">
-          Fornecedor: {product.provider}
+          Fornecedor: {props.product.provider}
         </Typography>
       </CardContent>
       <CardContent>
@@ -37,7 +43,7 @@ export default function ProductCard(product: any) {
           Preço
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          R$ {product.price}
+          R$ {props.product.price}
         </Typography>
         <CardActions>
           <Button size="small">Comprar</Button>

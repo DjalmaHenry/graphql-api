@@ -1,11 +1,12 @@
 import React from "react";
 import ProviderPage from "../ProviderPage/ProviderPage";
 import Products from "../../components/Products/Products";
+import Header from "../../components/Header/Header";
 
 export default function Home() {
   return (
     <div>
-      <h1>header</h1>
+      <Header />
       {/* <Products /> */}
       <ProviderPage />
     </div>
