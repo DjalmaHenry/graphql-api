@@ -54,6 +54,13 @@ export function Market() {
         </TableBody>
       </Table>
     </TableContainer>
+
     </div>
+    //botão flutuante para ir no carrinho
+    //Modal
+    //Título: Carrinho
+    //Tabela com produtos adicionados (Nome do Produto, Quantidade, Valor Unitário, Valor Total)
+    //Uma linha do final da tabela teria o valor final da soma de todos os produtos
+    //Um botão com comprar
   );
 }
