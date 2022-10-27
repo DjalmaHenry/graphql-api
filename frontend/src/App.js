@@ -8,6 +8,7 @@ import { Publish } from "./pages/Publish/Publish";
 import { Profile } from "./pages/Profile/Profile";
 import { Provider } from "./pages/Provider/Provider";
 import { Customers } from './pages/Customers/Customers';
+import { Orders } from './pages/Orders/Orders';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/provider" element={<Provider />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </BrowserRouter>
       
