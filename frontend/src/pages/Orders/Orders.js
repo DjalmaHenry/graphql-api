@@ -32,6 +32,7 @@ export function Orders(){
         <TableHead>
           <TableRow>
             <TableCell>Order ID</TableCell>
+            <TableCell align="right">Shipped Name</TableCell>
             <TableCell align="right">Order Date</TableCell>
             <TableCell align="right">Required Date</TableCell>
             <TableCell align="right">Shipped Date</TableCell>
@@ -46,6 +47,7 @@ export function Orders(){
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
