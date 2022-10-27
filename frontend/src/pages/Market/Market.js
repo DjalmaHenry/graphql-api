@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
+import { gql, useQuery } from "@apollo/client";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -21,7 +22,20 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+const GET_PRODUCTS = gql`
+  query {
+    products {
+      supplier_ids
+      product_name
+    }
+  }
+`;
+
 export function Market() {
+  const { data } = useQuery(GET_PRODUCTS);
+
+  console.log(data);
+  
   return (
     <div>
       <Navbar />
