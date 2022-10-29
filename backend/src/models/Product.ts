@@ -20,7 +20,7 @@ export class Product {
     reorder_level: number;
     @Field()
     target_level: number;
-    @Field()
+    @Field({ nullable: true })
     quantity_per_unit: string;
     @Field()
     discontinued: number;

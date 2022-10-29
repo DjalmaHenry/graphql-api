@@ -69,7 +69,7 @@ type Product {
   minimum_reorder_quantity: Float!
   product_code: String!
   product_name: String!
-  quantity_per_unit: String!
+  quantity_per_unit: String
   reorder_level: Float!
   standard_cost: Float!
   supplier_ids: String!

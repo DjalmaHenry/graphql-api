@@ -10,31 +10,34 @@ import Paper from '@mui/material/Paper';
 import { Button } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, price, unitary, discontinued) {
+  return { name, price, unitary, discontinued };
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 const GET_PRODUCTS = gql`
   query {
     products {
       supplier_ids
       product_name
+      list_price
+      quantity_per_unit
+      discontinued
     }
   }
 `;
 
 export function Market() {
   const { data } = useQuery(GET_PRODUCTS);
+  const rows = data?.products.map((product) => {
+    return createData(
+      product.product_name,
+      product.list_price,
+      product.quantity_per_unit,
+      product.discontinued
+    );
+  });
 
-  console.log(data);
+  console.log(rows);
   
   return (
     <div>
@@ -45,13 +48,13 @@ export function Market() {
           <TableRow>
             <TableCell>Product Name</TableCell>
             <TableCell align="right">Unitary Price&nbsp;($)</TableCell>
-            <TableCell align="right">Quantity In Storage</TableCell>
+            <TableCell align="right">Quantity Per Unit</TableCell>
             <TableCell align="right">Discontinued</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows?.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -59,9 +62,13 @@ export function Market() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.price}</TableCell>
+              {row.unitary ? (
+                <TableCell align="right">{row.unitary}</TableCell>
+              ) : (
+                <TableCell align="right">-</TableCell>
+              )}
+              <TableCell align="right">{row.discontinued}</TableCell>
               <TableCell align="right"><Button variant="contained">Add to Cart</Button></TableCell>
             </TableRow>
           ))}
