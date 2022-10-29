@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import "./Navbar.css"
+import React, { Component } from "react";
+import "./Navbar.css";
+import Cart from "../cart/Cart";
 
 export function Navbar() {
   return (
@@ -19,8 +20,11 @@ export function Navbar() {
           <li>
             <a href="/signin">Login</a>
           </li>
+          <li>
+            <Cart />
+          </li>
         </ul>
       </div>
     </nav>
-  )
+  );
 }
