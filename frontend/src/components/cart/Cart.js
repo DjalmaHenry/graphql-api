@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./Cart.css";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -17,6 +18,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 export default function Cart(props) {
   const rows = [
@@ -101,7 +104,7 @@ export default function Cart(props) {
     <div>
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button onClick={toggleDrawer(anchor, true)}><FontAwesomeIcon class="cartIcon" icon={faCartShopping}/></Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
