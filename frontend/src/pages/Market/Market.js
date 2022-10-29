@@ -1,6 +1,4 @@
 import React from "react";
-import { useContext } from "react";
-import { UserContext } from "../Signin/Signin";  
 import { Navbar } from "../../components/Navbar/Navbar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -39,8 +37,6 @@ export function Market() {
     );
   });
 
-  const user = useContext(UserContext);
-
   return (
     <div>
       <Navbar />
@@ -70,7 +66,13 @@ export function Market() {
                 ) : (
                   <TableCell align="right">-</TableCell>
                 )}
-                <TableCell align="right">{row.discontinued}</TableCell>
+                {
+                  row.discontinued === 0 ? (
+                    <TableCell align="right">No</TableCell>
+                  ) : (
+                    <TableCell align="right">Yes</TableCell>
+                  )
+                }
                 <TableCell align="right">
                   <Button variant="contained">Add to Cart</Button>
                 </TableCell>
