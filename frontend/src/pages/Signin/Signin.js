@@ -1,19 +1,17 @@
 import React from "react";
+import { createContext } from "react";
 import "./Signin.css";
 import { ErrorMessage, Formik, Form, Field } from "formik";
-import Axios from "axios";
 import * as yup from "yup";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/Footer/Footer";
 
+export const UserContext = createContext();
+
 export function Signin() {
   const handleLogin = (values) => {
-    Axios.post("", {
-      email: values.email,
-      password: values.password,
-    }).then((response) => {
-      alert(response.data.msg);
-    });
+    UserContext.Provider = values;
+    console.log(UserContext.Provider);
   };
 
   const validationsLogin = yup.object().shape({

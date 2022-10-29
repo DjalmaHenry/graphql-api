@@ -1,12 +1,14 @@
 import React from "react";
+import { useContext } from "react";
+import { UserContext } from "../Signin/Signin";  
 import { Navbar } from "../../components/Navbar/Navbar";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 
@@ -37,45 +39,47 @@ export function Market() {
     );
   });
 
-  console.log(rows);
-  
+  const user = useContext(UserContext);
+  console.log(user);
+
   return (
     <div>
       <Navbar />
       <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="right">Unitary Price&nbsp;($)</TableCell>
-            <TableCell align="right">Quantity Per Unit</TableCell>
-            <TableCell align="right">Discontinued</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows?.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.price}</TableCell>
-              {row.unitary ? (
-                <TableCell align="right">{row.unitary}</TableCell>
-              ) : (
-                <TableCell align="right">-</TableCell>
-              )}
-              <TableCell align="right">{row.discontinued}</TableCell>
-              <TableCell align="right"><Button variant="contained">Add to Cart</Button></TableCell>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Product Name</TableCell>
+              <TableCell align="right">Unitary Price&nbsp;($)</TableCell>
+              <TableCell align="right">Quantity Per Unit</TableCell>
+              <TableCell align="right">Discontinued</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-
+          </TableHead>
+          <TableBody>
+            {rows?.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                {row.unitary ? (
+                  <TableCell align="right">{row.unitary}</TableCell>
+                ) : (
+                  <TableCell align="right">-</TableCell>
+                )}
+                <TableCell align="right">{row.discontinued}</TableCell>
+                <TableCell align="right">
+                  <Button variant="contained">Add to Cart</Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
     //botão flutuante para ir no carrinho
     //Modal
