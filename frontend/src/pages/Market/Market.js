@@ -40,7 +40,6 @@ export function Market() {
   });
 
   const user = useContext(UserContext);
-  console.log(user);
 
   return (
     <div>

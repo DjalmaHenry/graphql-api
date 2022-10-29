@@ -11,7 +11,6 @@ export const UserContext = createContext();
 export function Signin() {
   const handleLogin = (values) => {
     UserContext.Provider = values;
-    console.log(UserContext.Provider);
   };
 
   const validationsLogin = yup.object().shape({
