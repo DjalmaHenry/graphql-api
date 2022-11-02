@@ -10,13 +10,14 @@ import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 
-function createData(name, price, unitary, discontinued) {
-  return { name, price, unitary, discontinued };
+function createData(name, price, unitary, discontinued, id) {
+  return { name, price, unitary, discontinued, id };
 }
 
 const GET_PRODUCTS = gql`
   query {
     products {
+      id
       supplier_ids
       product_name
       list_price
@@ -26,6 +27,18 @@ const GET_PRODUCTS = gql`
   }
 `;
 
+function handleAddToCart (productId) {
+  // clear local storage
+  localStorage.clear();
+  let products = JSON.parse(localStorage.getItem("products"));
+  if (products === null) {
+    products = [];
+  }
+  
+  products.push(productId);
+  localStorage.setItem("products", JSON.stringify([...products]));
+}
+
 export function Market() {
   const { data } = useQuery(GET_PRODUCTS);
   const rows = data?.products.map((product) => {
@@ -33,7 +46,8 @@ export function Market() {
       product.product_name,
       product.list_price,
       product.quantity_per_unit,
-      product.discontinued
+      product.discontinued,
+      product.id
     );
   });
 
@@ -74,7 +88,7 @@ export function Market() {
                   )
                 }
                 <TableCell align="right">
-                  <Button variant="contained">Add to Cart</Button>
+                  <Button variant="contained" type="submit" onClick={handleAddToCart(row.id)}>Add to Cart</Button>
                 </TableCell>
               </TableRow>
             ))}

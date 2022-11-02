@@ -18,34 +18,44 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
+function createData(name, price, unitary, id) {
+  return { name, price, unitary, id };
+}
 
 export default function Cart(props) {
-  const rows = [
-    {
-      name: "Cupcake",
-      price: 305,
-      quantity: 3,
-      total: 915,
-    },
-    {
-      name: "Donut",
-      price: 452,
-      quantity: 7,
-      total: 3164,
-    },
-    {
-      name: "Eclair",
-      price: 262,
-      quantity: 16,
-      total: 4192,
-    },
-  ];
+  // use effect to change local storage products
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    let products = [];
+    products = JSON.parse(localStorage.getItem("products"));
+    if (products === null) {
+      products = [];
+    }
+    setProducts(
+      Array.isArray(products) ?
+      products.map((product) =>
+        createData(
+          product.product_name,
+          product.list_price,
+          product.quantity_per_unit,
+          product.id
+        )
+      ) :
+      []
+    );
+    console.log(products);
+  }, [localStorage.getItem("products")]);
   // calcular o preço total do carrinho
   let total = 0;
-  for (let i = 0; i < rows.length; i++) {
-    total += rows[i].price * rows[i].quantity;
+  if (products) {
+    for (let i = 0; i < products.length; i++) {
+      total += products[i].list_price;
+    }
   }
   const [state, setState] = React.useState({
     bottom: false,
@@ -74,13 +84,13 @@ export default function Cart(props) {
           <TableHead>
             <TableRow>
               <TableCell>Product Name</TableCell>
-              <TableCell align="right">Unitary Price&nbsp;($)</TableCell>
-              <TableCell align="right">Quantity In Order</TableCell>
+              <TableCell align="right">Price&nbsp;($)</TableCell>
+              <TableCell align="right">Quantity per Unit</TableCell>
               <TableCell align="right">Total Price</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {products?.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -104,7 +114,9 @@ export default function Cart(props) {
     <div>
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}><FontAwesomeIcon class="cartIcon" icon={faCartShopping}/></Button>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            <FontAwesomeIcon class="cartIcon" icon={faCartShopping} />
+          </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
