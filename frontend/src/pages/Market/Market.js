@@ -27,16 +27,14 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-function handleAddToCart (productId) {
-  // clear local storage
-  localStorage.clear();
+function handleAddToCart(product) {
   let products = JSON.parse(localStorage.getItem("products"));
   if (products === null) {
     products = [];
   }
-  
-  products.push(productId);
-  localStorage.setItem("products", JSON.stringify([...products]));
+
+  products.push(product);
+  localStorage.setItem("products", JSON.stringify(products));
 }
 
 export function Market() {
@@ -80,15 +78,19 @@ export function Market() {
                 ) : (
                   <TableCell align="right">-</TableCell>
                 )}
-                {
-                  row.discontinued === 0 ? (
-                    <TableCell align="right">No</TableCell>
-                  ) : (
-                    <TableCell align="right">Yes</TableCell>
-                  )
-                }
+                {row.discontinued === 0 ? (
+                  <TableCell align="right">No</TableCell>
+                ) : (
+                  <TableCell align="right">Yes</TableCell>
+                )}
                 <TableCell align="right">
-                  <Button variant="contained" type="submit" onClick={handleAddToCart(row.id)}>Add to Cart</Button>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    onClick={() => handleAddToCart(row)}
+                  >
+                    Add to Cart
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

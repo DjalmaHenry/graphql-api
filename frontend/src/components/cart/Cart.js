@@ -22,13 +22,10 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-function createData(name, price, unitary, id) {
-  return { name, price, unitary, id };
-}
-
 export default function Cart(props) {
   // use effect to change local storage products
   const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let products = [];
@@ -36,27 +33,15 @@ export default function Cart(props) {
     if (products === null) {
       products = [];
     }
-    setProducts(
-      Array.isArray(products) ?
-      products.map((product) =>
-        createData(
-          product.product_name,
-          product.list_price,
-          product.quantity_per_unit,
-          product.id
-        )
-      ) :
-      []
+    products.map(product =>
+      product.total = total + product.price
     );
+    setTotal(products.reduce((a, b) => a + b.price, 0));
+    setProducts(products);
+
     console.log(products);
   }, [localStorage.getItem("products")]);
-  // calcular o preço total do carrinho
-  let total = 0;
-  if (products) {
-    for (let i = 0; i < products.length; i++) {
-      total += products[i].list_price;
-    }
-  }
+
   const [state, setState] = React.useState({
     bottom: false,
   });
@@ -99,7 +84,7 @@ export default function Cart(props) {
                   {row.name}
                 </TableCell>
                 <TableCell align="right">{row.price}</TableCell>
-                <TableCell align="right">{row.quantity}</TableCell>
+                <TableCell align="right">{row.unitary}</TableCell>
                 <TableCell align="right">{row.total}</TableCell>
               </TableRow>
             ))}
