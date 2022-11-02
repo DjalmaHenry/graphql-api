@@ -4,30 +4,44 @@
 # -----------------------------------------------
 
 type Customer {
+  address: String!
   attachments: String!
-  billing_address: String!
-  customer_type: String!
-  email: String!
-  fax: String!
+  business_phone: String!
+  city: String!
+  company: String!
+  country_region: String!
+  email_address: String!
+  fax_number: String!
+  first_name: String!
+  home_phone: String!
   id: ID!
-  name: String!
+  job_title: String!
+  last_name: String!
+  mobile_phone: String!
   notes: String!
-  phone: String!
-  shipping_address: String!
-  website: String!
+  state_province: String!
+  web_page: String!
+  zip_postal_code: String!
 }
 
 input CustomerInput {
+  address: String!
   attachments: String!
-  billing_address: String!
-  customer_type: String!
-  email: String!
-  fax: String!
-  name: String!
+  business_phone: String!
+  city: String!
+  company: String!
+  country_region: String!
+  email_address: String!
+  fax_number: String!
+  first_name: String!
+  home_phone: String!
+  job_title: String!
+  last_name: String!
+  mobile_phone: String!
   notes: String!
-  phone: String!
-  shipping_address: String!
-  website: String!
+  state_province: String!
+  web_page: String!
+  zip_postal_code: String!
 }
 
 type Mutation {

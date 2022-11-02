@@ -1,16 +1,10 @@
 import * as React from "react";
 import "./Cart.css";
+import { useState, useEffect } from "react";
+
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -18,14 +12,35 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useState, useEffect } from "react";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
+import { gql, useQuery } from "@apollo/client";
+
+const GET_CUSTOMERS = gql`
+  query {
+    customers {
+      id
+      first_name
+    }
+  }
+`;
+
+function handleChange(event) {
+  console.log(event.target.value);
+}
+
 export default function Cart(props) {
-  // use effect to change local storage products
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  const { customers } = useQuery(GET_CUSTOMERS);
+
+  console.log(customers);
 
   useEffect(() => {
     let products = [];
@@ -33,16 +48,18 @@ export default function Cart(props) {
     if (products === null) {
       products = [];
     }
-    products.map(product =>
-      product.total = total + product.price
-    );
-    setTotal(products.reduce((a, b) => a + b.price, 0));
-    setProducts(products);
 
-    console.log(products);
+    let totalPrice = 0;
+    products.map((product) => {
+      product.total = totalPrice + product.price;
+      totalPrice = product.total;
+    });
+    setTotal(totalPrice);
+
+    setProducts(products);
   }, [localStorage.getItem("products")]);
 
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     bottom: false,
   });
 
@@ -61,7 +78,6 @@ export default function Cart(props) {
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <TableContainer component={Paper}>
@@ -89,7 +105,30 @@ export default function Cart(props) {
               </TableRow>
             ))}
           </TableBody>
-          <p>Total: {total}</p>
+          <div>
+            <p>Total: {total}</p>
+            {customers ? 
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="demo-simple-select-standard-label">
+                Customer
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={customers.name}
+                onChange={handleChange}
+                label="Customer"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select>
+            </FormControl>
+            : null}
+          </div>
         </Table>
       </TableContainer>
     </Box>
@@ -100,12 +139,13 @@ export default function Cart(props) {
       {["bottom"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <FontAwesomeIcon class="cartIcon" icon={faCartShopping} />
+            <FontAwesomeIcon className="cartIcon" icon={faCartShopping} />
           </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
           >
             {list(anchor)}
           </Drawer>

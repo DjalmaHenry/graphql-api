@@ -2,50 +2,78 @@ import { Field, ID, InputType, ObjectType } from "type-graphql";
 
 @ObjectType()
 export class Customer {
+    @Field(_type => ID)
+    id: number;
     @Field()
-    customer_type: string;
+    company: string;
     @Field()
-    phone: string;
+    last_name: string;
     @Field()
-    fax: string;
+    first_name: string;
     @Field()
-    website: string;
+    email_address: string;
+    @Field()
+    job_title: string;
+    @Field()
+    business_phone: string;
+    @Field()
+    home_phone: string;
+    @Field()
+    mobile_phone: string;
+    @Field()
+    fax_number: string;
+    @Field()
+    address: string;
+    @Field()
+    city: string;
+    @Field()
+    state_province: string;
+    @Field()
+    zip_postal_code: string;
+    @Field()
+    country_region: string;
+    @Field()
+    web_page: string;
     @Field()
     notes: string;
     @Field()
     attachments: string;
-    @Field(_type => ID)
-    id: number;
-    @Field()
-    name: string;
-    @Field()
-    email: string;
-    @Field()
-    billing_address: string;
-    @Field()
-    shipping_address: string;
 }
 
 @InputType()
 export class CustomerInput {
     @Field()
-    customer_type: string;
+    company: string;
     @Field()
-    phone: string;
+    last_name: string;
     @Field()
-    fax: string;
+    first_name: string;
     @Field()
-    website: string;
+    email_address: string;
+    @Field()
+    job_title: string;
+    @Field()
+    business_phone: string;
+    @Field()
+    home_phone: string;
+    @Field()
+    mobile_phone: string;
+    @Field()
+    fax_number: string;
+    @Field()
+    address: string;
+    @Field()
+    city: string;
+    @Field()
+    state_province: string;
+    @Field()
+    zip_postal_code: string;
+    @Field()
+    country_region: string;
+    @Field()
+    web_page: string;
     @Field()
     notes: string;
     @Field()
     attachments: string;
-    @Field()
-    name: string;
-    @Field()
-    email: string;
-    @Field()
-    billing_address: string;
-    @Field()
-    shipping_address: string;
 }
