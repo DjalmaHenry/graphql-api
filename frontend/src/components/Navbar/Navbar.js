@@ -12,13 +12,10 @@ export function Navbar() {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/market">Mercado</a>
+            <a href="/market">Market</a>
           </li>
           <li>
-            <a href="/publish">Publicar</a>
-          </li>
-          <li>
-            <a href="/signin">Login</a>
+            <a href="/customers">Customers</a>
           </li>
           <li>
             <Cart />

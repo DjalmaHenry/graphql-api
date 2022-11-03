@@ -12,10 +12,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
@@ -31,16 +31,11 @@ const GET_CUSTOMERS = gql`
   }
 `;
 
-function handleChange(event) {
-  console.log(event.target.value);
-}
-
 export default function Cart(props) {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const { customers } = useQuery(GET_CUSTOMERS);
-
-  console.log(customers);
+  const { data } = useQuery(GET_CUSTOMERS);
+  const [selectedCustomer, setSelectedCustomer] = useState();
 
   useEffect(() => {
     let products = [];
@@ -53,15 +48,28 @@ export default function Cart(props) {
     products.map((product) => {
       product.total = totalPrice + product.price;
       totalPrice = product.total;
+      return product;
     });
     setTotal(totalPrice);
 
     setProducts(products);
-  }, [localStorage.getItem("products")]);
+
+    if (data) {
+      setSelectedCustomer(data.customers[0].id);
+    }
+  }, [localStorage.getItem("products"), data]);
 
   const [state, setState] = useState({
     bottom: false,
   });
+
+  function handleChange(event) {
+    setSelectedCustomer(event.target.value);
+  }
+
+  function handleCheckout() {
+
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -85,7 +93,7 @@ export default function Cart(props) {
           <TableHead>
             <TableRow>
               <TableCell>Product Name</TableCell>
-              <TableCell align="right">Price&nbsp;($)</TableCell>
+              <TableCell align="right">Unitary Price&nbsp;($)</TableCell>
               <TableCell align="right">Quantity per Unit</TableCell>
               <TableCell align="right">Total Price</TableCell>
             </TableRow>
@@ -105,29 +113,36 @@ export default function Cart(props) {
               </TableRow>
             ))}
           </TableBody>
-          <div>
+          <div className="footer">
             <p>Total: {total}</p>
-            {customers ? 
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-standard-label">
-                Customer
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={customers.name}
-                onChange={handleChange}
-                label="Customer"
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-            : null}
+            {data ? (
+              <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id="demo-simple-select-standard-label">
+                  Customer
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={selectedCustomer}
+                  onChange={handleChange}
+                  label="Customer"
+                >
+                  {data.customers.map((customer) => (
+                    <MenuItem value={customer.id}>
+                      {customer.first_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ) : null}
+
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => handleCheckout()}
+            >
+              Checkout
+            </Button>
           </div>
         </Table>
       </TableContainer>
@@ -145,7 +160,6 @@ export default function Cart(props) {
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
           >
             {list(anchor)}
           </Drawer>
