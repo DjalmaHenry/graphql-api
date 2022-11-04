@@ -123,8 +123,9 @@ type Query {
   order(id: Float!): Order!
   orderDetail(id: Float!): OrderDetails!
   orderDetails: [OrderDetails!]!
+  orderDetailsByOrder(order_id: String!): [OrderDetails!]!
   orders: [Order!]!
-  ordersByCustomer(customer_id: Float!): [Order!]!
+  ordersByCustomer(customer_id: String!): [Order!]!
   product(id: Float!): Product!
   products: [Product!]!
 }

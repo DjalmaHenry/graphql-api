@@ -12,40 +12,33 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { gql, useQuery } from "@apollo/client";
 
-function createData(id, ship_name, price) {
-  return { id, ship_name, price };
+function createData(id, ship_name) {
+  return { id, ship_name };
 }
 
 const GET_ORDERS = gql`
-  query {
+  query OrdersByCustomer($customer_id: String!) {
     ordersByCustomer(customer_id: $customer_id) {
       id
       ship_name
-    }
-    orderDetailsByOrder(order_id: $order_id) {
-      unit_price
     }
   }
 `;
 
 export function Orders() {
-  const { data } = useQuery(GET_ORDERS);
-  console.log(data);
   // get customer id from url query using useParams
   const { customer_id } = useParams();
-  data.customer_id = customer_id;
-  // get all ordersByCustomer with customer_id and orderDetailsByOrder with order_id from database query and createData
+  // input customer id into query
+  const { data } = useQuery(GET_ORDERS, {
+    variables: {
+      customer_id,
+    },
+  });
+  // get all ordersByCustomer with customer_id and orderDetailsByOrder with set variable order_id from database query and createData
   const rows = data?.ordersByCustomer.map((order) => {
-    return createData(
-      order.id,
-      order.ship_name,
-      data?.orderDetailsByOrder.map((orderDetail) => {
-        return orderDetail.unit_price;
-      })
-    );
+    return createData(order.id, order.ship_name);
   });
 
-  console.log(rows);
   return (
     <div>
       <Navbar />
@@ -55,7 +48,6 @@ export function Orders() {
             <TableRow>
               <TableCell>Order ID</TableCell>
               <TableCell align="right">Shipped Name</TableCell>
-              <TableCell align="right">Unitary Price</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,7 +60,6 @@ export function Orders() {
                   {row.id}
                 </TableCell>
                 <TableCell align="right">{row.ship_name}</TableCell>
-                <TableCell align="right">{row.price}</TableCell>
               </TableRow>
             ))}
           </TableBody>

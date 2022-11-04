@@ -14,7 +14,8 @@ export class OrderDetailsResolver {
         return await db("order_details").where("id", id).first();
     }
 
-    async orderDetailsByOrder(@Arg("order_id") order_id: number) {
+    @Query(() => [OrderDetails])
+    async orderDetailsByOrder(@Arg("order_id") order_id: string) {
         return await db("order_details").where("order_id", order_id).select("*");
     }
 

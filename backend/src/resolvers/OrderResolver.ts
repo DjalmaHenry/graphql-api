@@ -17,7 +17,7 @@ export class OrderResolver {
 
     // get all orders by customer_id
     @Query(() => [Order])
-    async ordersByCustomer(@Arg("customer_id") customer_id: number) {
+    async ordersByCustomer(@Arg("customer_id") customer_id: string) {
         return await db("orders").where("customer_id", customer_id).select("*");
     }
 
