@@ -4,54 +4,50 @@ import { Field, ID, InputType, ObjectType } from "type-graphql";
 export class Order {
     @Field(_type => ID)
     id: number;
-    @Field()
+    @Field({ nullable: true })
     employee_id: number;
     @Field()
     customer_id: number;
-    @Field()
-    order_date: string;
-    @Field()
-    shipped_date: string;
-    @Field()
+    @Field({ nullable: true })
+    order_date: Date;
+    @Field({ nullable: true })
+    shipped_date: Date;
+    @Field({ nullable: true })
     shipper_id: number;
     @Field()
     ship_name: string;
-    @Field()
+    @Field({ nullable: true })
     ship_address: string;
-    @Field()
+    @Field({ nullable: true })
     ship_city: string;
-    @Field()
+    @Field({ nullable: true })
     ship_state_province: string;
-    @Field()
+    @Field({ nullable: true })
     ship_zip_postal_code: string;
-    @Field()
+    @Field({ nullable: true })
     ship_country_region: string;
-    @Field()
+    @Field({ nullable: true })
     shipping_fee: number;
-    @Field()
+    @Field({ nullable: true })
     taxes: number;
-    @Field()
+    @Field({ nullable: true })
     payment_type: string;
-    @Field()
-    paid_date: string;
-    @Field()
+    @Field({ nullable: true })
+    paid_date: Date;
+    @Field({ nullable: true })
     notes: string;
-    @Field()
+    @Field({ nullable: true })
     tax_rate: number;
-    @Field()
+    @Field({ nullable: true })
     tax_status_id: number;
-    @Field()
+    @Field({ nullable: true })
     status_id: number;
 }
 
 @InputType()
 export class OrderInput {
     @Field()
-    customer_id: number;
+    customer_id: string;
     @Field()
-    order_date: string;
-    @Field()
-    shipping_fee: number;
-    @Field()
-    taxes: number;
+    ship_name: string;
 }

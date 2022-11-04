@@ -20,7 +20,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 const GET_CUSTOMERS = gql`
   query {
@@ -31,11 +31,30 @@ const GET_CUSTOMERS = gql`
   }
 `;
 
+const CREATE_ORDER = gql`
+  mutation CreateOrder($customer_id: String!, $ship_name: String!) {
+    createOrder(customer_id: $customer_id, ship_name: $ship_name) {
+      id
+    }
+  }
+`;
+
+const CREATE_ORDER_DETAILS = gql`
+  mutation CreateOrderDetail($order_id: String!, $product_id: String!, $unit_price: Float!, $quantity: Float!) {
+    createOrderDetail(order_id: $order_id, product_id: $product_id, unit_price: $unit_price, quantity: $quantity) {
+      id
+    }
+  }
+`;
+
 export default function Cart(props) {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const { data } = useQuery(GET_CUSTOMERS);
-  const [selectedCustomer, setSelectedCustomer] = useState();
+  const [createOrder] = useMutation(CREATE_ORDER);
+  const [createOrderDetail] = useMutation(CREATE_ORDER_DETAILS);
+  const [selectedCustomerId, setSelectedCustomerId] = useState();
+  const [selectedCustomerName, setSelectedCustomerName] = useState();
 
   useEffect(() => {
     let products = [];
@@ -55,7 +74,7 @@ export default function Cart(props) {
     setProducts(products);
 
     if (data) {
-      setSelectedCustomer(data.customers[0].id);
+      setSelectedCustomerId(data.customers[0].id);
     }
   }, [localStorage.getItem("products"), data]);
 
@@ -64,11 +83,35 @@ export default function Cart(props) {
   });
 
   function handleChange(event) {
-    setSelectedCustomer(event.target.value);
+    setSelectedCustomerId(event.target.value);
+    setSelectedCustomerName(data.customers[event.target.value].first_name);
   }
 
-  function handleCheckout() {
+  async function handleCheckout() {
+    console.log(selectedCustomerName);
+    const order_id = await createOrder({
+      variables: {
+        customer_id: selectedCustomerId,
+        ship_name: selectedCustomerName,
+      },
+    });
 
+    console.log(order_id);
+
+    products.map((product) => {
+      createOrderDetail({
+        variables: {
+          order_id: order_id.data.createOrder.id,
+          product_id: product.id,
+          unit_price: product.price,
+          quantity: 1,
+        },
+      });
+    });
+
+    console.log(order_id);
+
+    localStorage.clear();
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -101,11 +144,11 @@ export default function Cart(props) {
           <TableBody>
             {products?.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.name.split(" ")[2]}
                 </TableCell>
                 <TableCell align="right">{row.price}</TableCell>
                 <TableCell align="right">{row.unitary}</TableCell>
@@ -123,7 +166,7 @@ export default function Cart(props) {
                 <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
-                  value={selectedCustomer}
+                  value={selectedCustomerId}
                   onChange={handleChange}
                   label="Customer"
                 >

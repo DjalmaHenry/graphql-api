@@ -44,42 +44,43 @@ input CustomerInput {
   zip_postal_code: String!
 }
 
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
 type Mutation {
   createCustomer(customer: CustomerInput!): Customer!
-  createOrder(order: OrderInput!): Order!
-  createOrderDetail(orderDetail: OrderDetailsInput!): OrderDetails!
-  createProduct(product: ProductInput!): Product!
+  createOrder(customer_id: String!, ship_name: String!): Order!
+  createOrderDetail(order_id: String!, product_id: String!, quantity: Float!, unit_price: Float!): OrderDetails!
   deleteCustomer(id: Float!): Boolean!
   deleteOrder(id: Float!): Boolean!
   deleteOrderDetail(id: Float!): Boolean!
-  deleteProduct(id: Float!): Boolean!
   updateCustomer(customer: CustomerInput!, id: Float!): Customer!
-  updateOrder(id: Float!, order: OrderInput!): Order!
   updateOrderDetail(id: Float!, orderDetail: OrderDetailsInput!): OrderDetails!
-  updateProduct(id: Float!, product: ProductInput!): Product!
 }
 
 type Order {
   customer_id: Float!
-  employee_id: Float!
+  employee_id: Float
   id: ID!
-  notes: String!
-  order_date: String!
-  paid_date: String!
-  payment_type: String!
-  ship_address: String!
-  ship_city: String!
-  ship_country_region: String!
+  notes: String
+  order_date: DateTime
+  paid_date: DateTime
+  payment_type: String
+  ship_address: String
+  ship_city: String
+  ship_country_region: String
   ship_name: String!
-  ship_state_province: String!
-  ship_zip_postal_code: String!
-  shipped_date: String!
-  shipper_id: Float!
-  shipping_fee: Float!
-  status_id: Float!
-  tax_rate: Float!
-  tax_status_id: Float!
-  taxes: Float!
+  ship_state_province: String
+  ship_zip_postal_code: String
+  shipped_date: DateTime
+  shipper_id: Float
+  shipping_fee: Float
+  status_id: Float
+  tax_rate: Float
+  tax_status_id: Float
+  taxes: Float
 }
 
 type OrderDetails {
@@ -99,28 +100,6 @@ input OrderDetailsInput {
   unit_price: Float!
 }
 
-input OrderInput {
-  customer_id: Float!
-  employee_id: Float!
-  notes: String!
-  order_date: String!
-  paid_date: String!
-  payment_type: String!
-  ship_address: String!
-  ship_city: String!
-  ship_country_region: String!
-  ship_name: String!
-  ship_state_province: String!
-  ship_zip_postal_code: String!
-  shipped_date: String!
-  shipper_id: Float!
-  shipping_fee: Float!
-  status_id: Float!
-  tax_rate: Float!
-  tax_status_id: Float!
-  taxes: Float!
-}
-
 type Product {
   attachments: String!
   category: String!
@@ -132,22 +111,6 @@ type Product {
   product_code: String!
   product_name: String!
   quantity_per_unit: String
-  reorder_level: Float!
-  standard_cost: Float!
-  supplier_ids: String!
-  target_level: Float!
-}
-
-input ProductInput {
-  attachments: String!
-  category: String!
-  description: String!
-  discontinued: Float!
-  list_price: Float!
-  minimum_reorder_quantity: Float!
-  product_code: String!
-  product_name: String!
-  quantity_per_unit: String!
   reorder_level: Float!
   standard_cost: Float!
   supplier_ids: String!

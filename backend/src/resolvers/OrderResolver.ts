@@ -17,18 +17,14 @@ export class OrderResolver {
 
     @Mutation(() => Order)
     async createOrder(
-        @Arg("order") order: OrderInput
+        @Arg("customer_id") customer_id: string,
+        @Arg("ship_name") ship_name: string
     ): Promise<Order> {
+        const order = {
+            customer_id,
+            ship_name,
+        } as OrderInput;
         const [id] = await db("orders").insert(order);
-        return await db("orders").where("id", id).first();
-    }
-
-    @Mutation(() => Order)
-    async updateOrder(
-        @Arg("id") id: number,
-        @Arg("order") order: OrderInput
-    ): Promise<Order> {
-        await db("orders").where("id", id).update(order);
         return await db("orders").where("id", id).first();
     }
 

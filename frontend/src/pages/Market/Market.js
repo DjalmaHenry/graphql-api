@@ -70,7 +70,7 @@ export function Market() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.name.split(" ")[2]}
                 </TableCell>
                 <TableCell align="right">{row.price}</TableCell>
                 {row.unitary ? (

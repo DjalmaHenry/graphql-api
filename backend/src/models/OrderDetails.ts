@@ -20,7 +20,7 @@ export class OrderDetails {
 @InputType()
 export class OrderDetailsInput {
     @Field()
-    discount: number;
+    order_id: number;
     @Field()
     product_id: number;
     @Field()
@@ -28,5 +28,5 @@ export class OrderDetailsInput {
     @Field()
     quantity: number;
     @Field()
-    order_id: number;
+    discount: number;
 }

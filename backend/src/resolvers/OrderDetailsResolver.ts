@@ -16,9 +16,21 @@ export class OrderDetailsResolver {
 
     @Mutation(() => OrderDetails)
     async createOrderDetail(
-        @Arg("orderDetail") orderDetail: OrderDetailsInput
+        @Arg("order_id") order_id: string,
+        @Arg("product_id") product_id: string,
+        @Arg("quantity") quantity: number,
+        @Arg("unit_price") unit_price: number
     ): Promise<OrderDetails> {
-        const [id] = await db("order_details").insert(orderDetail);
+        const order_id_refactored = parseInt(order_id);
+        const product_id_refactored = parseInt(product_id);
+        const order = {
+            order_id: order_id_refactored,
+            product_id: product_id_refactored,
+            quantity,
+            unit_price,
+            discount: 0,
+        } as OrderDetailsInput;
+        const [id] = await db("order_details").insert(order);
         return await db("order_details").where("id", id).first();
     }
 
