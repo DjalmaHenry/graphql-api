@@ -9,10 +9,7 @@ export function Navbar() {
       <div className="navbar-options">
         <ul>
           <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/market">Market</a>
+            <a href="/">Market</a>
           </li>
           <li>
             <a href="/customers">Customers</a>

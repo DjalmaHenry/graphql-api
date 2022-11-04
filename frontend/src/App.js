@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home/Home";
 import { Signup } from "./pages/Signup/Signup";
 import { Market } from "./pages/Market/Market";
 import { Customers } from './pages/Customers/Customers';
@@ -11,12 +10,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Market />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/market" element={<Market />} />
           <Route path="/customers" element={<Customers />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:customer_id" element={<Orders />} />
         </Routes>
       </BrowserRouter>
     </div>

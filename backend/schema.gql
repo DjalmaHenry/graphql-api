@@ -53,7 +53,7 @@ type Mutation {
   createCustomer(customer: CustomerInput!): Customer!
   createOrder(customer_id: String!, ship_name: String!): Order!
   createOrderDetail(order_id: String!, product_id: String!, quantity: Float!, unit_price: Float!): OrderDetails!
-  deleteCustomer(id: Float!): Boolean!
+  deleteCustomer(id: String!): Boolean!
   deleteOrder(id: Float!): Boolean!
   deleteOrderDetail(id: Float!): Boolean!
   updateCustomer(customer: CustomerInput!, id: Float!): Customer!
@@ -124,6 +124,7 @@ type Query {
   orderDetail(id: Float!): OrderDetails!
   orderDetails: [OrderDetails!]!
   orders: [Order!]!
+  ordersByCustomer(customer_id: Float!): [Order!]!
   product(id: Float!): Product!
   products: [Product!]!
 }

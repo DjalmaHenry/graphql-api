@@ -96,8 +96,6 @@ export default function Cart(props) {
       },
     });
 
-    console.log(order_id);
-
     products.map((product) => {
       createOrderDetail({
         variables: {
@@ -108,8 +106,6 @@ export default function Cart(props) {
         },
       });
     });
-
-    console.log(order_id);
 
     localStorage.clear();
   }
