@@ -43,7 +43,7 @@ export function Orders() {
     <div>
       <Navbar />
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ maxWidth: 500 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Order ID</TableCell>

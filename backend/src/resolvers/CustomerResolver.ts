@@ -11,14 +11,25 @@ export class CustomerResolver {
     }
 
     @Query(() => Customer)
-    async customer(@Arg("id") id: number) {
+    async customer(@Arg("id") id: string) {
         return await db("customers").where("id", id).first();
     }
 
     @Mutation(() => Customer)
     async createCustomer(
-        @Arg("customer") customer: CustomerInput
+        @Arg("first_name") first_name: string,
+        @Arg("company") company: string,
+        @Arg("email_address") email_address: string,
+        @Arg("business_phone") business_phone: string,
+        @Arg("address") address: string,
     ): Promise<Customer> {
+        const customer = {
+            first_name,
+            company,
+            email_address,
+            business_phone,
+            address,
+        } as CustomerInput;
         const [id] = await db("customers").insert(customer);
         return await db("customers").where("id", id).first();
     }

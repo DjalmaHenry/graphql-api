@@ -5,43 +5,31 @@
 
 type Customer {
   address: String!
-  attachments: String!
+  attachments: String
   business_phone: String!
-  city: String!
+  city: String
   company: String!
-  country_region: String!
+  country_region: String
   email_address: String!
-  fax_number: String!
+  fax_number: String
   first_name: String!
-  home_phone: String!
+  home_phone: String
   id: ID!
-  job_title: String!
-  last_name: String!
-  mobile_phone: String!
-  notes: String!
-  state_province: String!
-  web_page: String!
-  zip_postal_code: String!
+  job_title: String
+  last_name: String
+  mobile_phone: String
+  notes: String
+  state_province: String
+  web_page: String
+  zip_postal_code: String
 }
 
 input CustomerInput {
   address: String!
-  attachments: String!
   business_phone: String!
-  city: String!
   company: String!
-  country_region: String!
   email_address: String!
-  fax_number: String!
   first_name: String!
-  home_phone: String!
-  job_title: String!
-  last_name: String!
-  mobile_phone: String!
-  notes: String!
-  state_province: String!
-  web_page: String!
-  zip_postal_code: String!
 }
 
 """
@@ -50,7 +38,7 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 scalar DateTime
 
 type Mutation {
-  createCustomer(customer: CustomerInput!): Customer!
+  createCustomer(address: String!, business_phone: String!, company: String!, email_address: String!, first_name: String!): Customer!
   createOrder(customer_id: String!, ship_name: String!): Order!
   createOrderDetail(order_id: String!, product_id: String!, quantity: Float!, unit_price: Float!): OrderDetails!
   deleteCustomer(id: String!): Boolean!
@@ -118,12 +106,11 @@ type Product {
 }
 
 type Query {
-  customer(id: Float!): Customer!
+  customer(id: String!): Customer!
   customers: [Customer!]!
   order(id: Float!): Order!
   orderDetail(id: Float!): OrderDetails!
   orderDetails: [OrderDetails!]!
-  orderDetailsByOrder(order_id: String!): [OrderDetails!]!
   orders: [Order!]!
   ordersByCustomer(customer_id: String!): [Order!]!
   product(id: Float!): Product!

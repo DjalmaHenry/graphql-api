@@ -14,11 +14,6 @@ export class OrderDetailsResolver {
         return await db("order_details").where("id", id).first();
     }
 
-    @Query(() => [OrderDetails])
-    async orderDetailsByOrder(@Arg("order_id") order_id: string) {
-        return await db("order_details").where("order_id", order_id).select("*");
-    }
-
     @Mutation(() => OrderDetails)
     async createOrderDetail(
         @Arg("order_id") order_id: string,
