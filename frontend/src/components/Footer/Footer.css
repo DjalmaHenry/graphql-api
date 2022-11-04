@@ -1,0 +1,22 @@
+.footer-container {
+    font-size: 1.5rem;
+    background-color: #b6d3a8;
+    width: 100%;
+    height: 2.3rem;
+    color: #fff;
+    bottom: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 2rem;
+    bottom: 0;
+}
+
+.copy-text {
+    opacity: 1;
+}
+
+.name {
+    color: #FFF;
+    font-weight: bold;
+}
