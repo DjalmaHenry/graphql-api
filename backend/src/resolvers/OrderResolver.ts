@@ -18,7 +18,13 @@ export class OrderResolver {
     // get all orders by customer_id
     @Query(() => [Order])
     async ordersByCustomer(@Arg("customer_id") customer_id: string) {
+        this.countOrders(customer_id);
         return await db("orders").where("customer_id", customer_id).select("*");
+    }
+
+    async countOrders(@Arg("customer_id") customer_id: string) {
+        const count = await db("orders").where("customer_id", customer_id).count("*");
+        console.log("the customer " + customer_id + " has " + count[0]['count(*)'] + " orders");
     }
 
     @Mutation(() => Order)
