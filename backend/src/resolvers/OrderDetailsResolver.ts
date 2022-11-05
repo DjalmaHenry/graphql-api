@@ -1,4 +1,4 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver, Subscription } from "type-graphql";
 import db from "../config/db";
 import { OrderDetails, OrderDetailsInput } from "../models/OrderDetails";
 
@@ -30,7 +30,11 @@ export class OrderDetailsResolver {
             unit_price,
             discount: 0,
         } as OrderDetailsInput;
+
         const [id] = await db("order_details").insert(order);
+
+        this.newOrderDetail(id);
+
         return await db("order_details").where("id", id).first();
     }
 
@@ -51,5 +55,21 @@ export class OrderDetailsResolver {
         } catch (error) {
             return false;
         }
+    }
+
+    @Subscription(() => OrderDetails, {
+        topics: "NEW_ORDER_DETAIL",
+    })
+    newOrderDetail(@Arg("id") id: number) {
+        db("order_details")
+            .where("id", id)
+            .update({
+                discount: 0.2,
+            })
+            .then(() => {
+                console.log("discount added for order of id: ", id);
+            }
+            );
+        return db("order_details").where("id", id).select("*");
     }
 }

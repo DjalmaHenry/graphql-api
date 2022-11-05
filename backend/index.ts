@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import path from "path";
 import { ApolloServer } from "apollo-server";
+import { PubSub } from 'graphql-subscriptions';
 import { buildSchema } from "type-graphql";
 
 import { CustomerResolver } from './src/resolvers/CustomerResolver';
@@ -19,8 +20,10 @@ async function main() {
         emitSchemaFile: path.resolve(__dirname, "schema.gql"),
     });
 
+    const pubsub = new PubSub();
     const server = new ApolloServer({
         schema,
+        context: { pubsub },
     });
 
     const { url } = await server.listen();
