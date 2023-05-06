@@ -58,6 +58,16 @@ Back-end:
 - Inicie o front-end com `npm run start`
 - Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
 
----
+## 👨‍👦‍👦 Colaboradores
 
-Feito por DjalmaHenry.
+#### Nome: Djalma Henrique Silva Lima
+- GitHub: [DjalmaHenry](https://github.com/DjalmaHenry)
+
+#### Nome: Lucas dos Santos Amorim Rego
+- GitHub: [lucass235](https://github.com/lucass235)
+
+#### Nome: Marcos Fellipe Andrade da Silva
+- GitHub: [marcosfandrade](https://github.com/marcosfandrade)
+
+#### Nome: Ronny Lima Ribeiro da Silva
+- GitHub: [marcosfandrade](https://github.com/ronnylrsd)
