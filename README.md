@@ -70,4 +70,4 @@ Back-end:
 - GitHub: [marcosfandrade](https://github.com/marcosfandrade)
 
 #### Nome: Ronny Lima Ribeiro da Silva
-- GitHub: [marcosfandrade](https://github.com/ronnylrsd)
+- GitHub: [ronnylrsd](https://github.com/ronnylrsd)
