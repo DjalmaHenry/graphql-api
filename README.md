@@ -33,11 +33,12 @@ Back-end:
 
 - [Node.js](https://nodejs.org/en/)
 - [GraphQL](https://graphql.org/)
+- [Type GraphQL](https://typegraphql.com/)
 - [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
 - [Knex](http://knexjs.org/)
 - [MySQL WorkBench](https://www.mysql.com/products/workbench/)
-- [MySQL](https://www.mysql.com/)
-- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [MySQL2](https://www.mysql.com/)
+- [Class Validator](https://github.com/typestack/class-validator)
 
 ## 🚀 Como executar
 
